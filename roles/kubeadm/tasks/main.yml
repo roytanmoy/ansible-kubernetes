@@ -26,6 +26,7 @@
   
 - name: install kubeadm
   apt:
+    update_cache: yes
     pkg:
       - kubelet
       - kubeadm
