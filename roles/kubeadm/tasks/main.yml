@@ -1,0 +1,34 @@
+---
+
+- name: install transport-https
+  apt: 
+    pkg:
+      - apt-transport-https
+
+- name: install apt-key depedency
+  apt:
+    name: [python-urllib3, python-openssl, python-pyasn1, python-pip]
+    state: present
+    #update_cache: yes
+
+- apt_key: 
+    url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
+    state: present
+
+- name: add kubernetes repo
+  file:
+    path: /etc/apt/sources.list.d/kubernetes.list
+    state: touch
+
+- lineinfile: dest="/etc/apt/sources.list.d/kubernetes.list" line="{{item}}"
+  with_items:
+    - "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+  
+- name: install kubeadm
+  apt:
+    pkg:
+      - kubelet
+      - kubeadm
+      - kubectl
+      - kubernetes-cni
+    state: present

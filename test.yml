@@ -1,0 +1,5 @@
+---
+- name: "POST json example" 
+  hosts: master
+  tasks:
+    - debug: var=ansible_facts

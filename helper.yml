@@ -1,0 +1,47 @@
+---
+- name: "POST json example" 
+  hosts: master
+  gather_facts: true
+     
+######  add tasks ######
+  tasks:
+    - name: install apt-key depedency
+      tags:
+        package
+      apt:
+        name: [python-openssl]
+        state: present
+                                        
+    - name: install a pkg
+      tags: pkg
+      apt:
+        pkg:
+          - apt-transport-https
+                              
+    - name: Add repository key
+      tags: key
+      apt_key: url=https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      register: add_repository_key
+      ignore_errors: true
+
+    - name: add kubernetes repo
+      command: touch /etc/apt/apt.conf.d/33mysettings
+    - lineinfile: dest="/etc/apt/apt.conf.d/33mysettings" line="{{item}}"
+      with_items:
+        - "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    - name: update cache
+      tags: update
+      apt:
+        name: kubernetes
+        state: present
+        update_cache: yes
+
+    - name: create file
+      tags: file
+      lineinfile:
+        dest: ~/delit
+        line: "{{ master_ip }}"
+        state: present
+        create: yes
+        insertbefore: BOF
+
