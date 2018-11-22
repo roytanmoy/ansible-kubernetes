@@ -1,9 +1,6 @@
 # ansible-kubernetes
 
-Standalone kubeadm deployment
-
-
-
+kubernete deployment on ubuntu 16.05
 
 1. Update the datetime if ntp server is not configured
 # date -s '2018-11-22 15:42:00'
