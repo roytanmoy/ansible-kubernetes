@@ -1,9 +1,22 @@
 # ansible-kubernetes
 
-kubernete deployment on ubuntu 16.05
+# kubernete cluster deployment on 3 hosts 
 
+
+* At high level, deployment has following steps -
+Install the kubernetes master on one host
+Install the kubernete slaves on two hosts
+
+# ASSUMPTIONS/PREREQUISITIES
+ * This scirpt assumes ubuntu server version 16.05.
+ * All servers are configured with NTP or atleast with correct Date and Time
+ * No PreInstalled package or application onto the servers
+ * Expects passwordless sudo
+ * Requires Ansible 1.3
+ 
+# USER ACTION REQUIRED 
 1. Update the datetime if ntp server is not configured
-# date -s '2018-11-22 15:42:00'
+#date -s '2018-11-22 15:42:00'
 
 2. Edit file /etc/ansible/ansible.cfg for correct path of inventory file
 #inventory      = /etc/ansible/hosts
