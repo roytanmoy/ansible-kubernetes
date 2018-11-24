@@ -1,4 +1,10 @@
 ---
+- name: checking variables
+  debug:
+    var: hostvars['clusterVM1'].join_command
 
-- name: kubeadm join with pre generated token
-  command: kubeadm join --token {{ kubeadm_token }} {{ master_ip }}:6443
+- name: join cluster
+  shell: "{{ hostvars['clusterVM1'].join_command }} >> node_joined.txt"
+  args:
+    chdir: $HOME
+    creates: node_joined.txt

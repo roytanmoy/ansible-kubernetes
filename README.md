@@ -35,3 +35,10 @@ ansible-playbook -i inventory site.yml
 6. For debug purpose use a tag for a particular role as below
 ansible-playbook -vvvvvv  -i inventory site.yml --limit @/root/ansible-kubernetes/site.retry --tag kubeadm
 
+To bring down the whole Kube Cluster
+systemctl stop kubelet
+cd /etc/kubernetes/manifests
+rm *.yaml
+cd /var/lib/etcd
+rm -rf member/
+netstat -lnp | grep kube >> kill the remaining kube services, if any
