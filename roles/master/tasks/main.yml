@@ -1,6 +1,4 @@
 ---
-- name: turn off swap
-  command: swapoff -a
 - name: kubeadm init with pre generated token
   command: kubeadm init --pod-network-cidr {{ flannel_subnet }} --token {{ kubeadm_token }} --ignore-preflight-errors Swap
 
